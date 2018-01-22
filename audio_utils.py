@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 
 # every spectrogram is truncated to a certain num of frames
 N_FRAMES = 400
-
 N_RECONSTRUCTION_ITER = 100
 
 
@@ -16,12 +15,16 @@ def read_audio(filename):
     return signal, fs
 
 
-def spectrum(signal):
+def _spectrum(signal):
     return np.log1p(np.abs(librosa.stft(signal)))
 
 
-def trim(signal):
+def _trim(signal):
     return signal[:, :N_FRAMES]
+
+
+def get_spectrum(signal):
+    return _trim(_spectrum(signal))
 
 
 def reconstruct(spectrogram, waveform_shape):
